@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Uploader</title>
     <link rel="stylesheet" href="index.css">
+    <script src="createVideo.js" async/>
   </head>
   <body>
     <div class="content">
@@ -11,12 +12,5 @@
         <h1> image file: <input type="file" id="imagefile" size="80"> </h1>
         <button type="button" onclick="printPath()">Create Video</button>
     </div>
-    <script type="text/javascript">
-        function printPath() {
-            var mp3path = document.getElementById("mp3file").files[0].path;
-            var imagepath = document.getElementById("imagefile").files[0].path;
-            document.write("mp3:" + mp3path + "<br> image:" + imagepath);
-        }
-    </script>
   </body>
 </html>
