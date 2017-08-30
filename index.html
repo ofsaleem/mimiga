@@ -6,7 +6,17 @@
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
-    <h1> mp3 file: <input type="file" name="mp3file" size="80"> </h1>
-    <h1> image file: <input type="file" name="imagefile" size="80"> </h1>
+    <div class="content">
+        <h1> mp3 file: <input type="file" id="mp3file" size="80"> </h1>
+        <h1> image file: <input type="file" id="imagefile" size="80"> </h1>
+        <button type="button" onclick="printPath()">Create Video</button>
+    </div>
+    <script type="text/javascript">
+        function printPath() {
+            var mp3path = document.getElementById("mp3file").files[0].path;
+            var imagepath = document.getElementById("imagefile").files[0].path;
+            document.write("mp3:" + mp3path + "\n image:" + imagepath);
+            }
+    </script>
   </body>
 </html>
