@@ -13,7 +13,7 @@ function createWindow () {
       height: 600
   })
 
-  // and load the index.html of the app.
+  // and load the index.html of the app. 
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
