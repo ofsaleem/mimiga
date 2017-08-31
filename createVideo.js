@@ -20,6 +20,7 @@ function createVideo() {
         .videoCodec('libx264')
         .size('1920x1080')
         .audioCodec('libmp3lame')
+        .audioQuality(0)
         .on('error', function(err) {
             console.log('An error occurred: ' + err.message);
         })
