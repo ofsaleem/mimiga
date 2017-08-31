@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "main.js",
   "devDependencies": {
-    "ffbinaries": "^1.0.2"
+    "ffbinaries": "^1.0.2",
+    "fluent-ffmpeg": "^2.1.2"
   }
 }
