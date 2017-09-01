@@ -5,6 +5,8 @@
     <title>Uploader</title>
     <link rel="stylesheet" href="index.css">
     <script src="createVideo.js" async></script>
+    <script src="youtubeAuth.js" async></script>
+    <script src="uploadVideo.js" async></script>
   </head>
   <body>
     <div class="content">
@@ -12,6 +14,7 @@
         <h1> image file: <input type="file" id="imagefile" size="80"> </h1>
         <button type="button" onclick="createVideo()">Create Video</button>
         <button type="button" onclick="getFfmpeg()">Download ffmpeg</button>
+        <button type="button" onclick="youtubeAuth()">Authenticate</button>
     </div>
   </body>
 </html>
