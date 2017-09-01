@@ -19,7 +19,7 @@ function createVideo() {
                     s: '1920x1080',
                     rate: '24',
                     zoom: '6',
-                    draw: 'line'
+                    draw: 'line',
                 },
                 inputs: '0:a',
                 outputs: 'outa'
