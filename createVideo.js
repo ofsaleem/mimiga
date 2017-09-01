@@ -1,21 +1,7 @@
-
-function printPath() {
-    var mp3path = document.getElementById("mp3file").files[0].path;
-    var imagepath = document.getElementById("imagefile").files[0].path;
-    document.write("mp3:" + mp3path + "<br> image:" + imagepath);
-}
-
 function createVideo() {
     var ffmpeg = require('fluent-ffmpeg');
-
     var mp3path = document.getElementById("mp3file").files[0].path;
     var imagepath = document.getElementById("imagefile").files[0].path;
-    // call ffmpeg here?
-    /*var ffmpegCommand = ffmpeg(mp3path).input(imagepath).output('output.mp4').on('end', function() {
-            console.log('Finished processing');
-        })
-        .run();;
-    */
     ffmpeg().input(mp3path).input(imagepath)
         .videoCodec('libx264')
         .size('1920x1080')
