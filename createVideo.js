@@ -6,14 +6,6 @@ function createVideo() {
         .inputOptions(['-loop 1'])
         .complexFilter([
             {
-                /*filter: 'showwaves',
-                options: {
-                    s: '1920x1080',
-                    mode: 'line',
-                    rate: '24',
-                    scale: 'cbrt',
-                    colors: 'cyan|gray'
-                },*/
                 filter: 'avectorscope',
                 options: {
                     s: '1920x1080',
@@ -54,11 +46,8 @@ function createVideo() {
             }
 
         ], 'out')
-        //.outputOption(['-filter_complex "[0:a]showwaves=s=1920x1080:mode=line:rate=24:scale=sqrt:colors=cyan|gray[outa]; [1:v]scale=w=1920:h=1080:force_original_aspect_ratio=decrease[outv]; [outa][outv]overlay=(W-w)/2:(H-h)/2,scale=w=1920:h=1080[out]" -map "[out]" -map 0:a'])
         .outputOption(['-map 0:a'])
         .videoCodec('libx264')
-        //.size('1920x1080')
-        //.outputOption(['-filter_complex "[0:a]avectorscope=s=640x518[left]; [0:a]showspectrum=mode=separate:color=intensity:scale=cbrt:s=640x518[right];"'])
         .outputOption(['-tune stillimage'])
         .outputOption(['-crf 18'])
         .audioCodec('aac')
@@ -87,8 +76,6 @@ function createVideo() {
         .on('end', function() {
             console.log('Output finished!');
         })
-        //TODO: add cool spectrograph effects?
-        //.outputOptions(['-c:v libx264', '-tune stillimage', '-crf 18', '-c:a aac', '-b:a 320k', '-pix_fmt yuv420p', '-r 24', '-preset veryslow', '-movflags +faststart', '-profile:v high', '-level 4.0', '-bf 2', '-g 12', '-coder 1', '-ac 2', '-ar 48000', '-shortest'])
         .save('output.mp4');
 }
 
