@@ -2,7 +2,7 @@ function createVideo() {
     var ffmpeg = require('fluent-ffmpeg');
     var mp3path = document.getElementById("mp3file").files[0].path;
     var imagepath = document.getElementById("imagefile").files[0].path;
-    ffmpeg().input(mp3path).input(imagepath)
+    ffmpeg().input(mp3path).input(imagepath).inputOptions(['-loop 1'])
     /*
         .videoCodec('libx264')
         .audioCodec('libmp3lame')
@@ -23,8 +23,8 @@ function createVideo() {
         .outputOption('-pix_fmt yuv420p')
         .outputOption('-crf 18')
     */
-        .outputOptions(['-loop 1', '-c:v libx264', '-tune stillimage', '-crf 18', '-c:a aac', '-b:a 320k', '-pix_fmt yuv420p', '-r 24', '-preset veryslow', '-movflags +faststart', '-profile:v high', '-level 4.0', '-bf 2', '-g 12', '-coder 1', '-ac 2', '-ar 48000'])
-        .save('output.avi');
+        .outputOptions(['-c:v libx264', '-tune stillimage', '-crf 18', '-c:a aac', '-b:a 320k', '-pix_fmt yuv420p', '-r 24', '-preset veryslow', '-movflags +faststart', '-profile:v high', '-level 4.0', '-bf 2', '-g 12', '-coder 1', '-ac 2', '-ar 48000', '-shortest'])
+        .save('output.mp4');
 }
 
 function getFfmpeg() {
