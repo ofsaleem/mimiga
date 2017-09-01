@@ -107,3 +107,7 @@ function youtubeAuth() {
     form.submit();
 */
 }
+
+function uploadVideo() {
+    
+}
