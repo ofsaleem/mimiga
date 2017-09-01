@@ -2,3 +2,4 @@ ffmpeg.exe
 ffprobe.exe
 *.avi
 credentials.json
+*.mp4

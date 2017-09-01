@@ -2,6 +2,8 @@ var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var Lien = require('lien');
 var opn = require('opn');
+var util = require('util');
+var readline = require('readline');
 var fs = require("fs");
 var scopes = ['https://www.googleapis.com/auth/youtube.upload'];
 var file = fs.readFileSync("credentials.json");
@@ -14,11 +16,6 @@ var oauth2Client = new OAuth2(
 var url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes
-});
-
-var youtube = google.youtube({
-    version: 'v3',
-    auth: oauth2Client
 });
 
 var server = new Lien({
@@ -37,11 +34,18 @@ function youtubeAuth() {
                 return console.log(err);
             }
             console.log("Got the tokens");
+            oauth2Client.setCredentials(tokens);
             lien.end("Authentication successful. Please return to the app");
         });
     });
+}
 
-/*
+function uploadVideo() {
+    var youtube = google.youtube({
+        version: 'v3',
+        auth: oauth2Client
+    });
+
     var req = youtube.videos.insert({
         part: 'id,snippet,status',
         notifySubscribers: false,
@@ -55,7 +59,7 @@ function youtubeAuth() {
             }
         },
         media: {
-            body: fs.createReadStream('output.avi')
+            body: fs.createReadStream('output.mp4')
         }
     }, function (err, data) {
         if (err) {
@@ -64,18 +68,17 @@ function youtubeAuth() {
         if (data) {
             console.log(util.inspect(data, false, null));
         }
-        process.exit();
+        //process.exit();
     });
 
-    var fileSize = fs.statSync('output.avi').size;
+    var fileSize = fs.statSync('output.mp4').size;
 
     var id = setInterval(function () {
         var uploadedBytes = req.req.connection._bytesDispatched;
-        var uploadedMBytes = uploadedBytes / 1000;
+        var uploadedMBytes = uploadedBytes / 1000000;
         var progress = uploadedBytes > fileSize
             ? 100 : (uploadedBytes / fileSize) * 100;
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
+        readline.cursorTo(process.stdout, 0);
         process.stdout.write(uploadedMBytes.toFixed(2) + 'MBs uploaded. ' +
             progress.toFixed(2) + '% completed.');
             if (progress === 100) {
@@ -83,31 +86,4 @@ function youtubeAuth() {
                 clearInterval(id);
             }
     }, 250);
-*/
-
-/*    var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
-    var form = document.createElement('form');
-    form.setAttribute('method', 'GET');
-    form.setAttribute('action', oauth2Endpoint);
-    var params = {
-        'client_id': CREDENTIALS.web.client_id,
-        'response_type': 'token',
-        'redirect_uri': CREDENTIALS.web.redirect_uris[0],
-        'scope': 'https://www.googleapis.com/auth/youtube.upload',
-        'include_granted_scopes': 'true',
-        'state': 'pass-through value'};
-    for (var p in params) {
-        var input = document.createElement('input');
-        input.setAttribute('type', 'hidden');
-        input.setAttribute('name', p);
-        input.setAttribute('value', params[p]);
-        form.appendChild(input);
-    }
-    document.body.appendChild(form);
-    form.submit();
-*/
-}
-
-function uploadVideo() {
-    
 }

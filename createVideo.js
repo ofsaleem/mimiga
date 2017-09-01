@@ -3,17 +3,28 @@ function createVideo() {
     var mp3path = document.getElementById("mp3file").files[0].path;
     var imagepath = document.getElementById("imagefile").files[0].path;
     ffmpeg().input(mp3path).input(imagepath)
+    /*
         .videoCodec('libx264')
-        .size('1920x1080')
         .audioCodec('libmp3lame')
         .audioQuality(0)
+        */
+        .on('start', function(commandLine) {
+            console.log('Spawned Ffmpeg with command: ' + commandLine);
+        })
         .on('error', function(err) {
             console.log('An error occurred: ' + err.message);
         })
         .on('end', function() {
             console.log('Output finished!');
         })
-        .save('./output.avi');
+        //TODO: add progress bar
+        /*
+        .format('avi')
+        .outputOption('-pix_fmt yuv420p')
+        .outputOption('-crf 18')
+    */
+        .outputOptions(['-loop 1', '-c:v libx264', '-tune stillimage', '-crf 18', '-c:a aac', '-b:a 320k', '-pix_fmt yuv420p', '-r 24', '-preset veryslow', '-movflags +faststart', '-profile:v high', '-level 4.0', '-bf 2', '-g 12', '-coder 1', '-ac 2', '-ar 48000'])
+        .save('output.avi');
 }
 
 function getFfmpeg() {
