@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "main": "main.js",
   "devDependencies": {
-      "electron": "latest"
+    "electron": "latest",
+    "electron-builder": "^19.27.3"
   },
   "dependencies": {
     "googleapis": "^21.3.0",
