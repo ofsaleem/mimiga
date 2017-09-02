@@ -1,12 +1,13 @@
 {
   "name": "youtube-uploader",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "main.js",
   "devDependencies": {
-    "ffbinaries": "^1.0.2",
-    "fluent-ffmpeg": "^2.1.2"
+      "electron": "latest"
   },
   "dependencies": {
-    "googleapis": "^21.3.0"
+    "googleapis": "^21.3.0",
+    "ffbinaries": "^1.0.2",
+    "fluent-ffmpeg": "^2.1.2"
   }
 }
