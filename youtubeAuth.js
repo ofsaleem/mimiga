@@ -6,6 +6,7 @@ var util = require('util');
 var readline = require('readline');
 var fs = require("fs");
 var scopes = ['https://www.googleapis.com/auth/youtube.upload'];
+var output = document.getElementById('output');
 var file = fs.readFileSync("credentials.json");
 const CREDENTIALS = JSON.parse(file);
 var oauth2Client = new OAuth2(
@@ -27,13 +28,14 @@ var server = new Lien({
 function youtubeAuth() {
     opn(url);
     server.addPage("/oauth2callback", lien => {
-        console.log("Trying to get the token using the following code: " + lien.query.code);
+        output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
         oauth2Client.getToken(lien.query.code, (err, tokens) => {
             if (err) {
                 lien.lien(err, 400);
+                output.innerHMTL += err + '\n';
                 return console.log(err);
             }
-            console.log("Got the tokens");
+            output.innerHTML += "Got the tokens\n";
             oauth2Client.setCredentials(tokens);
             lien.end("Authentication successful. Please return to the app");
         });
@@ -63,10 +65,11 @@ function uploadVideo() {
         }
     }, function (err, data) {
         if (err) {
+            output.innerHTML += 'Error: ' + err + '\n';
             console.error('Error: ' + err);
         }
         if (data) {
-            console.log(util.inspect(data, false, null));
+            output.innerHTML += '\n' + util.inspect(data, false, null) + '\n';
         }
         //process.exit();
     });
@@ -78,12 +81,14 @@ function uploadVideo() {
         var uploadedMBytes = uploadedBytes / 1000000;
         var progress = uploadedBytes > fileSize
             ? 100 : (uploadedBytes / fileSize) * 100;
-        readline.cursorTo(process.stdout, 0);
-        process.stdout.write(uploadedMBytes.toFixed(2) + 'MBs uploaded. ' +
-            progress.toFixed(2) + '% completed.');
-            if (progress === 100) {
-                process.stdout.write('\nDone uploading, waiting for response...\n');
-                clearInterval(id);
-            }
+        var text = output.innerHTML;
+        output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
+        output.innerHTML += '\n' + uploadedMBytes.toFixed(2) + 'MBs uploaded. ' +
+            progress.toFixed(2) + '% completed.';
+        if (progress === 100) {
+            output.InnerHTML += '\nDone uploading, waiting for response...\n';
+            clearInterval(id);
+        }
+        output.scrollTop = output.scrollHeight - output.clientHeight;
     }, 250);
 }
