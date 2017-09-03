@@ -184,103 +184,69 @@ function createVideo() {
     // ], 'out')
 
     // top bottom waveforms
-    // .complexFilter([
-    //     {
-    //         filter: 'color',
-    //         options: {
-    //             s: '1920x1080',
-    //             c: 'black'
-    //         },
-    //         outputs: ['blackbg']
-    //     },
-    //     {
-    //         filter: 'showwaves',
-    //         options: {
-    //             s: fixedimagewidth + 'x400',
-    //             rate: '12',
-    //             colors: 'cyan|gray',
-    //             mode: 'line',
-    //             scale: 'lin'
-    //         },
-    //         inputs: ['0:a'],
-    //         outputs: ['wave']
-    //     },
-    //     {
-    //         filter: 'split',
-    //         inputs: ['wave'],
-    //         outputs: ['wave1', 'wave2']
-    //     },
-    //     {
-    //         filter: 'scale',
-    //         options: {
-    //             w: '-1',
-    //             h: '600',
-    //         },
-    //         inputs: ['1:v'],
-    //         outputs: ['pic']
-    //     },
-    //     {
-    //         filter: 'overlay',
-    //         options: {
-    //             x: '(W-w)/2',
-    //             y: '40',
-    //             eval: 'init'
-    //         },
-    //         inputs: ['blackbg', 'wave1'],
-    //         outputs: ['waves']
-    //     },
-    //     {
-    //         filter: 'overlay',
-    //         options: {
-    //             x: '(W-w)/2',
-    //             y: '640',
-    //             eval: 'init'
-    //         },
-    //         inputs: ['waves', 'wave2'],
-    //         outputs: ['bg']
-    //     },
-    //     {
-    //         filter: 'overlay',
-    //         options: {
-    //             x: '(W-w)/2',
-    //             y: '(H-h)/2',
-    //             eval: 'init'
-    //         },
-    //         inputs: ['bg', 'pic'],
-    //         outputs: ['out']
-    //     }
-    // ], 'out')
-
-    // avectorscope with blur
     .complexFilter([
         {
-            filter: 'avectorscope',
+            filter: 'color',
             options: {
                 s: '1920x1080',
-                rate: '24',
-                zoom: '6',
-                draw: 'line',
+                c: 'black'
             },
-            inputs: '0:a',
-            outputs: 'outa'
+            outputs: ['blackbg']
         },
         {
-            filter: 'boxblur',
-            options: [
-                '50',
-                '1'
-            ],
-            inputs: ['outa'],
-            outputs: ['outa']
+            filter: 'showwaves',
+            options: {
+                s: fixedimagewidth + 'x400',
+                rate: '12',
+                colors: 'cyan|gray',
+                mode: 'line',
+                scale: 'lin'
+            },
+            inputs: ['0:a'],
+            outputs: ['wave']
+        },
+        {
+            filter: 'split',
+            inputs: ['wave'],
+            outputs: ['wave1', 'wave2']
         },
         {
             filter: 'scale',
             options: {
                 w: '-1',
-                h: '600'
+                h: '600',
             },
-            inputs: '1:v',
-            outputs: 'outv'
+            inputs: ['1:v'],
+            outputs: ['pic']
+        },
+        {
+            filter: 'overlay',
+            options: {
+                x: '(W-w)/2',
+                y: '40',
+                eval: 'init'
+            },
+            inputs: ['blackbg', 'wave1'],
+            outputs: ['waves']
+        },
+        {
+            filter: 'overlay',
+            options: {
+                x: '(W-w)/2',
+                y: '640',
+                eval: 'init'
+            },
+            inputs: ['waves', 'wave2'],
+            outputs: ['bg']
+        },
+        {
+            filter: 'boxblur',
+            options: [
+                '20',
+                '2'
+            ],
+            inputs: ['bg'],
+            outputs: ['bg']
         },
         {
             filter: 'overlay',
@@ -289,20 +255,63 @@ function createVideo() {
                 y: '(H-h)/2',
                 eval: 'init'
             },
-            inputs: ['outa', 'outv'],
-            outputs: 'out'
-        },
-        {
-            filter: 'scale',
-            options: {
-                w: '1920',
-                h: '1080'
-            },
-            inputs: 'out',
-            outputs: 'out'
+            inputs: ['bg', 'pic'],
+            outputs: ['out']
         }
-
     ], 'out')
+
+    // avectorscope with blur
+    // .complexFilter([
+    //     {
+    //         filter: 'avectorscope',
+    //         options: {
+    //             s: '1920x1080',
+    //             rate: '24',
+    //             zoom: '6',
+    //             draw: 'line',
+    //         },
+    //         inputs: '0:a',
+    //         outputs: 'outa'
+    //     },
+    //     {
+    //         filter: 'boxblur',
+    //         options: [
+    //             '50',
+    //             '1'
+    //         ],
+    //         inputs: ['outa'],
+    //         outputs: ['outa']
+    //     },
+    //     {
+    //         filter: 'scale',
+    //         options: {
+    //             w: '-1',
+    //             h: '600'
+    //         },
+    //         inputs: '1:v',
+    //         outputs: 'outv'
+    //     },
+    //     {
+    //         filter: 'overlay',
+    //         options: {
+    //             x: '(W-w)/2',
+    //             y: '(H-h)/2',
+    //             eval: 'init'
+    //         },
+    //         inputs: ['outa', 'outv'],
+    //         outputs: 'out'
+    //     },
+    //     {
+    //         filter: 'scale',
+    //         options: {
+    //             w: '1920',
+    //             h: '1080'
+    //         },
+    //         inputs: 'out',
+    //         outputs: 'out'
+    //     }
+    //
+    // ], 'out')
     .outputOption(['-map 0:a'])
     .videoCodec('libx264')
     .outputOption(['-tune stillimage'])
