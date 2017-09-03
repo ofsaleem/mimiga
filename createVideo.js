@@ -36,7 +36,7 @@ function renderWithWaveforms(mp3path, imagepath, output) {
             filter: 'showwaves',
             options: {
                 s: fixedimagewidth + 'x400',
-                rate: '24',
+                rate: '60',
                 colors: 'cyan|gray',
                 mode: 'line',
                 scale: 'sqrt'
@@ -104,13 +104,13 @@ function renderWithWaveforms(mp3path, imagepath, output) {
     .audioCodec('aac')
     .audioBitrate(320)
     .outputOption(['-pix_fmt yuv420p'])
-    .fpsOutput(24)
+    .fpsOutput(60)
     .outputOption(['-preset slow'])
     .outputOption(['-movflags +faststart'])
     .outputOption(['-profile:v high'])
     .outputOption(['-level 4.0'])
     .outputOption(['-bf 2'])
-    .outputOption(['-g 12'])
+    .outputOption(['-g 30'])
     .outputOption(['-coder 1'])
     .audioChannels(2)
     .audioFrequency(48000)
@@ -145,7 +145,7 @@ function renderWithVectorscope(mp3path, imagepath, output) {
             filter: 'avectorscope',
             options: {
                 s: '1920x1080',
-                rate: '24',
+                rate: '60',
                 zoom: '6',
                 draw: 'line',
             },
@@ -187,13 +187,13 @@ function renderWithVectorscope(mp3path, imagepath, output) {
     .audioCodec('aac')
     .audioBitrate(320)
     .outputOption(['-pix_fmt yuv420p'])
-    .fpsOutput(24)
+    .fpsOutput(60)
     .outputOption(['-preset slow'])
     .outputOption(['-movflags +faststart'])
     .outputOption(['-profile:v high'])
     .outputOption(['-level 4.0'])
     .outputOption(['-bf 2'])
-    .outputOption(['-g 12'])
+    .outputOption(['-g 30'])
     .outputOption(['-coder 1'])
     .audioChannels(2)
     .audioFrequency(48000)
