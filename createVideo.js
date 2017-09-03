@@ -88,7 +88,7 @@ function createVideo() {
                 filter: 'showwaves',
                 options: {
                     s: fixedimagewidth + 'x400',
-                    rate: '12',
+                    rate: '24',
                     colors: 'cyan|gray',
                     mode: 'line',
                     scale: 'lin'
@@ -98,8 +98,29 @@ function createVideo() {
             },
             {
                 filter: 'split',
+                options: '4',
                 inputs: ['wave'],
-                outputs: ['wave1', 'wave2']
+                outputs: ['wave1', 'wave2', 'wave3', 'wave4']
+            },
+            {
+                filter: 'rotate',
+                options: {
+                    a: 'PI/2',
+                    ow: '400',
+                    oh: fixedimagewidth
+                },
+                inputs: ['wave3'],
+                outputs: ['wave3']
+            },
+            {
+                filter: 'rotate',
+                options: {
+                    a: '-PI/2',
+                    ow: '400',
+                    oh: fixedimagewidth
+                },
+                inputs: ['wave4'],
+                outputs: ['wave4']
             },
             {
                 filter: 'scale',
@@ -118,7 +139,7 @@ function createVideo() {
                     eval: 'init'
                 },
                 inputs: ['blackbg', 'wave1'],
-                outputs: ['waves']
+                outputs: ['bg']
             },
             {
                 filter: 'overlay',
@@ -127,7 +148,27 @@ function createVideo() {
                     y: '640',
                     eval: 'init'
                 },
-                inputs: ['waves', 'wave2'],
+                inputs: ['bg', 'wave2'],
+                outputs: ['bg']
+            },
+            {
+                filter: 'overlay',
+                options: {
+                    x: '1060',
+                    y: '(H-h)/2',
+                    eval: 'init'
+                },
+                inputs: ['bg', 'wave3'],
+                outputs: ['bg']
+            },
+            {
+                filter: 'overlay',
+                options: {
+                    x: '460',
+                    y: '(H-h)/2',
+                    eval: 'init'
+                },
+                inputs: ['bg', 'wave4'],
                 outputs: ['bg']
             },
             {
@@ -148,7 +189,7 @@ function createVideo() {
         .audioCodec('aac')
         .audioBitrate(320)
         .outputOption(['-pix_fmt yuv420p'])
-        .fpsOutput(12)
+        .fpsOutput(24)
         .outputOption(['-preset ultrafast'])
         .outputOption(['-movflags +faststart'])
         .outputOption(['-profile:v high'])
