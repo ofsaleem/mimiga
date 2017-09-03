@@ -20,8 +20,8 @@ function createVideo() {
             {
                 filter: 'scale',
                 options: {
-                    w: '1920',
-                    h: '1080',
+                    w: '800',
+                    h: '600',
                     force_original_aspect_ratio: 'decrease'
                 },
                 inputs: '1:v',
@@ -50,15 +50,15 @@ function createVideo() {
         .outputOption(['-map 0:a'])
         .videoCodec('libx264')
         .outputOption(['-tune stillimage'])
-        .outputOption(['-crf 18'])
+        .outputOption(['-crf 21'])
         .audioCodec('aac')
         .audioBitrate(320)
         .outputOption(['-pix_fmt yuv420p'])
         .fpsOutput(24)
-        .outputOption(['-preset veryfast'])
+        .outputOption(['-preset ultrafast'])
         .outputOption(['-movflags +faststart'])
-        .outputOption(['-profile:v high'])
-        .outputOption(['-level 4.0'])
+        //.outputOption(['-profile:v high'])
+        //.outputOption(['-level 4.0'])
         .outputOption(['-bf 2'])
         .outputOption(['-g 12'])
         .outputOption(['-coder 1'])
