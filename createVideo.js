@@ -24,10 +24,8 @@ function createVideo() {
     var ffmpeg = require('fluent-ffmpeg');
     var mp3path = document.getElementById("mp3file").files[0].path;
     var imagepath = document.getElementById("imagefile").files[0].path;
-    var img = new Image;
-
     var output = document.getElementById('output');
-    ffmpeg().input(mp3path).seekInput('1:31.000').input(imagepath)
+    ffmpeg().input(mp3path).input(imagepath)
     .inputOptions(['-loop 1'])
 
     // line avectorscope
@@ -181,115 +179,72 @@ function createVideo() {
     //         inputs: ['bg', 'pic'],
     //         outputs: ['out']
     //     }
-    // ], 'out')
+    // ], 'out') with blur
 
-    // top bottom waveforms
-    .complexFilter([
-        {
-            filter: 'color',
-            options: {
-                s: '1920x1080',
-                c: 'black'
-            },
-            outputs: ['blackbg']
-        },
-        {
-            filter: 'showwaves',
-            options: {
-                s: fixedimagewidth + 'x400',
-                rate: '12',
-                colors: 'cyan|gray',
-                mode: 'line',
-                scale: 'lin'
-            },
-            inputs: ['0:a'],
-            outputs: ['wave']
-        },
-        {
-            filter: 'split',
-            inputs: ['wave'],
-            outputs: ['wave1', 'wave2']
-        },
-        {
-            filter: 'scale',
-            options: {
-                w: '-1',
-                h: '600',
-            },
-            inputs: ['1:v'],
-            outputs: ['pic']
-        },
-        {
-            filter: 'overlay',
-            options: {
-                x: '(W-w)/2',
-                y: '40',
-                eval: 'init'
-            },
-            inputs: ['blackbg', 'wave1'],
-            outputs: ['waves']
-        },
-        {
-            filter: 'overlay',
-            options: {
-                x: '(W-w)/2',
-                y: '640',
-                eval: 'init'
-            },
-            inputs: ['waves', 'wave2'],
-            outputs: ['bg']
-        },
-        {
-            filter: 'boxblur',
-            options: [
-                '20',
-                '2'
-            ],
-            inputs: ['bg'],
-            outputs: ['bg']
-        },
-        {
-            filter: 'overlay',
-            options: {
-                x: '(W-w)/2',
-                y: '(H-h)/2',
-                eval: 'init'
-            },
-            inputs: ['bg', 'pic'],
-            outputs: ['out']
-        }
-    ], 'out')
-
-    // avectorscope with blur
+    // top bottom waveforms with blur
     // .complexFilter([
     //     {
-    //         filter: 'avectorscope',
+    //         filter: 'color',
     //         options: {
     //             s: '1920x1080',
-    //             rate: '24',
-    //             zoom: '6',
-    //             draw: 'line',
+    //             c: 'black'
     //         },
-    //         inputs: '0:a',
-    //         outputs: 'outa'
+    //         outputs: ['blackbg']
     //     },
     //     {
-    //         filter: 'boxblur',
-    //         options: [
-    //             '50',
-    //             '1'
-    //         ],
-    //         inputs: ['outa'],
-    //         outputs: ['outa']
+    //         filter: 'showwaves',
+    //         options: {
+    //             s: fixedimagewidth + 'x400',
+    //             rate: '12',
+    //             colors: 'cyan|gray',
+    //             mode: 'line',
+    //             scale: 'lin'
+    //         },
+    //         inputs: ['0:a'],
+    //         outputs: ['wave']
+    //     },
+    //     {
+    //         filter: 'split',
+    //         inputs: ['wave'],
+    //         outputs: ['wave1', 'wave2']
     //     },
     //     {
     //         filter: 'scale',
     //         options: {
     //             w: '-1',
-    //             h: '600'
+    //             h: '600',
     //         },
-    //         inputs: '1:v',
-    //         outputs: 'outv'
+    //         inputs: ['1:v'],
+    //         outputs: ['pic']
+    //     },
+    //     {
+    //         filter: 'overlay',
+    //         options: {
+    //             x: '(W-w)/2',
+    //             y: '40',
+    //             eval: 'init'
+    //         },
+    //         inputs: ['blackbg', 'wave1'],
+    //         outputs: ['waves']
+    //     },
+    //     {
+    //         filter: 'overlay',
+    //         options: {
+    //             x: '(W-w)/2',
+    //             y: '640',
+    //             eval: 'init'
+    //         },
+    //         inputs: ['waves', 'wave2'],
+    //         outputs: ['bg']
+    //     },
+    //     {
+    //         filter: 'boxblur',
+    //         options: [
+    //             '20',
+    //             '2'
+    //         ],
+    //         inputs: ['bg'],
+    //         outputs: ['bg']
     //     },
     //     {
     //         filter: 'overlay',
@@ -298,29 +253,61 @@ function createVideo() {
     //             y: '(H-h)/2',
     //             eval: 'init'
     //         },
-    //         inputs: ['outa', 'outv'],
-    //         outputs: 'out'
-    //     },
-    //     {
-    //         filter: 'scale',
-    //         options: {
-    //             w: '1920',
-    //             h: '1080'
-    //         },
-    //         inputs: 'out',
-    //         outputs: 'out'
+    //         inputs: ['bg', 'pic'],
+    //         outputs: ['out']
     //     }
-    //
     // ], 'out')
+
+    // avectorscope with blur
+    .complexFilter([
+        {
+            filter: 'avectorscope',
+            options: {
+                s: '1920x1080',
+                rate: '24',
+                zoom: '6',
+                draw: 'line',
+            },
+            inputs: '0:a',
+            outputs: 'outa'
+        },
+        {
+            filter: 'boxblur',
+            options: [
+                '40',
+                '2'
+            ],
+            inputs: ['outa'],
+            outputs: ['outa']
+        },
+        {
+            filter: 'scale',
+            options: {
+                w: '-1',
+                h: '600'
+            },
+            inputs: '1:v',
+            outputs: 'outv'
+        },
+        {
+            filter: 'overlay',
+            options: {
+                x: '(W-w)/2',
+                y: '(H-h)/2',
+                eval: 'init'
+            },
+            inputs: ['outa', 'outv'],
+            outputs: 'out'
+        }
+    ], 'out')
     .outputOption(['-map 0:a'])
     .videoCodec('libx264')
-    .outputOption(['-tune stillimage'])
-    .outputOption(['-crf 21'])
+    .outputOption(['-crf 20'])
     .audioCodec('aac')
     .audioBitrate(320)
     .outputOption(['-pix_fmt yuv420p'])
     .fpsOutput(24)
-    .outputOption(['-preset ultrafast'])
+    .outputOption(['-preset slow'])
     .outputOption(['-movflags +faststart'])
     .outputOption(['-profile:v high'])
     .outputOption(['-level 4.0'])
@@ -330,7 +317,6 @@ function createVideo() {
     .audioChannels(2)
     .audioFrequency(48000)
     .outputOption(['-shortest'])
-    .duration(10)
     .on('start', function(commandLine) {
         output.innerHTML += 'Spawned Ffmpeg with command: ' + commandLine + '\n' +
         'Beginning encoding\n';
