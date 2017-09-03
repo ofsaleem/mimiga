@@ -1,10 +1,11 @@
 youtube mp3 uploader gui in node + electron
 
-takes audio file and image file and creates a video, then uploads it to youtube
+takes audio file and image file and creates a video, then uploads it to youtube. also adds one of two visualizers, a blurred vectorscope behind the album art or a blurred pair of waveforms above and below the album art
 
 1. select audio file
 2. select image file
 3. hit download ffmpeg (only need to do this once per install, or when you want to update ffmpeg)
+3.5 optionally choose visualizer. defaults to vectorscope.
 4. hit create video
 5. when thats complete, hit authenticate
 6. after authentication is complete, hit upload video
