@@ -286,7 +286,8 @@ function createVideo() {
             filter: 'overlay',
             options: {
                 x: '(W-w)/2',
-                y: '(H-h)/2'
+                y: '(H-h)/2',
+                eval: 'init'
             },
             inputs: ['outa', 'outv'],
             outputs: 'out'
