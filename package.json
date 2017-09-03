@@ -27,8 +27,6 @@
         "win": {
             "target": "NSIS"
         },
-        "directories": {
-            "files": "credentials.json"
-        }
+        "files": "credentials.json"
     }
 }
