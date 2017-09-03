@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Uploader</title>
     <link rel="stylesheet" href="index.css">
     <script src="createVideo.js" async></script>
     <script src="uploadVideo.js" async></script>
-  </head>
-  <body>
+</head>
+<body>
     <div class="content">
         <h1> Music file: <br>
             <input type="file" id="mp3file" size="80"> </h1>
-        <h1> Image file: <br>
-            <input type="file" id="imagefile" size="80" onchange="getImageWidth(this);"> </h1>
-        <button type="button" onclick="createVideo()">Create Video</button>
-        <button type="button" onclick="getFfmpeg()">Download ffmpeg</button>
-        <button type="button" onclick="youtubeAuth()">Authenticate</button>
-        <button type="button" onclick="uploadVideo()">Upload Video</button>
-        <br>
-        <label for="output">Status: </label><br><textarea readonly rows="10" cols="50" name="output" id="output"></textarea>
-    </div>
-  </body>
-</html>
+            <h1> Image file: <br>
+                <input type="file" id="imagefile" size="80" onchange="getImageWidth(this);"> </h1>
+                <label for="visualizer">Visualizer Type</label>
+                <select id="visualizer">
+                    <option value="vectorscope">Vectorscope</option>
+                    <option value="waveform">Waveform</option>
+                </select> <br>
+                <button type="button" onclick="createVideo()">Create Video</button>
+
+                <button type="button" onclick="getFfmpeg()">Download ffmpeg</button>
+                <button type="button" onclick="youtubeAuth()">Authenticate</button>
+                <button type="button" onclick="uploadVideo()">Upload Video</button>
+                <br>
+                <label for="output">Status: </label><br><textarea readonly rows="10" cols="50" name="output" id="output"></textarea>
+            </div>
+        </body>
+        </html>
