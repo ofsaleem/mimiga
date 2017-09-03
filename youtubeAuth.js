@@ -29,13 +29,16 @@ function youtubeAuth() {
     opn(url);
     server.addPage("/oauth2callback", lien => {
         output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
+        output.scrollTop = output.scrollHeight - output.clientHeight;
         oauth2Client.getToken(lien.query.code, (err, tokens) => {
             if (err) {
                 lien.lien(err, 400);
                 output.innerHMTL += err + '\n';
+                output.scrollTop = output.scrollHeight - output.clientHeight;
                 return console.log(err);
             }
             output.innerHTML += "Got the tokens\n";
+            output.scrollTop = output.scrollHeight - output.clientHeight;
             oauth2Client.setCredentials(tokens);
             lien.end("Authentication successful. Please return to the app");
         });
@@ -66,10 +69,12 @@ function uploadVideo() {
     }, function (err, data) {
         if (err) {
             output.innerHTML += 'Error: ' + err + '\n';
+            output.scrollTop = output.scrollHeight - output.clientHeight;
             console.error('Error: ' + err);
         }
         if (data) {
             output.innerHTML += '\n' + util.inspect(data, false, null) + '\n';
+            output.scrollTop = output.scrollHeight - output.clientHeight;
         }
         //process.exit();
     });

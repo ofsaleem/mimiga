@@ -96,7 +96,8 @@ function getFfmpeg() {
     var ffbinaries = require ('ffbinaries');
     var platform = ffbinaries.detectPlatform();
     ffbinaries.downloadFiles(['ffmpeg', 'ffprobe'], {platform: platform}, function() {
-        console.log('Downloaded ffmpeg and ffprobe for platform');
+        output.innerHTML += '\nDownloaded ffmpeg and ffprobe for platform' + platform;
+        output.scrollTop = output.scrollHeight - output.clientHeight;
     });
     process.env.FFMPEG_PATH = '.\\ffmpeg.exe';
     process.env.FFPROBE_PATH = '.\\ffprobe.exe';

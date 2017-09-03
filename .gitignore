@@ -3,3 +3,4 @@ ffprobe.exe
 *.avi
 credentials.json
 *.mp4
+/dist/
