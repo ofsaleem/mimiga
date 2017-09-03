@@ -1,51 +1,145 @@
+var imagewidth = 600;
+var imageheight = 600;
+var fixedimagewidth = 600;
+
+function getImageWidth(input) {
+    var fr = new FileReader;
+    fr.onload = function() {
+        var img = new Image;
+        img.onload = function() {
+            imagewidth = img.width;
+            imageheight = img.height;
+        };
+        img.src = fr.result;
+    };
+    fr.readAsDataURL(input.files[0]);
+    var ar = imagewidth / imageheight;
+    ar = (parseFloat(ar.toFixed(1)));
+    fixedimagewidth = 600 * ar;
+    fixedimagewidth = fixedimagewidth.toFixed(0);
+}
+
+
 function createVideo() {
     var ffmpeg = require('fluent-ffmpeg');
     var mp3path = document.getElementById("mp3file").files[0].path;
     var imagepath = document.getElementById("imagefile").files[0].path;
+    var img = new Image;
+
     var output = document.getElementById('output');
-    ffmpeg().input(mp3path).input(imagepath)
+    ffmpeg().input(mp3path).seekInput('1:31.000').input(imagepath)
         .inputOptions(['-loop 1'])
+
+        // line avectorscope
+        // .complexFilter([
+        //     {
+        //         filter: 'avectorscope',
+        //         options: {
+        //             s: '1920x1080',
+        //             rate: '24',
+        //             zoom: '6',
+        //             draw: 'line',
+        //         },
+        //         inputs: '0:a',
+        //         outputs: 'outa'
+        //     },
+        //     {
+        //         filter: 'scale',
+        //         options: {
+        //             w: '800',
+        //             h: '600',
+        //             force_original_aspect_ratio: 'decrease'
+        //         },
+        //         inputs: '1:v',
+        //         outputs: 'outv'
+        //     },
+        //     {
+        //         filter: 'overlay',
+        //         options: {
+        //             x: '(W-w)/2',
+        //             y: '(H-h)/2'
+        //         },
+        //         inputs: ['outa', 'outv'],
+        //         outputs: 'out'
+        //     },
+        //     {
+        //         filter: 'scale',
+        //         options: {
+        //             w: '1920',
+        //             h: '1080'
+        //         },
+        //         inputs: 'out',
+        //         outputs: 'out'
+        //     }
+        //
+        // ], 'out')
+
+        //
         .complexFilter([
             {
-                filter: 'avectorscope',
+                filter: 'color',
                 options: {
                     s: '1920x1080',
-                    rate: '24',
-                    zoom: '6',
-                    draw: 'line',
+                    c: 'black'
                 },
-                inputs: '0:a',
-                outputs: 'outa'
+                outputs: ['blackbg']
+            },
+            {
+                filter: 'showwaves',
+                options: {
+                    s: fixedimagewidth + 'x400',
+                    rate: '12',
+                    colors: 'cyan|gray',
+                    mode: 'line',
+                    scale: 'lin'
+                },
+                inputs: ['0:a'],
+                outputs: ['wave']
+            },
+            {
+                filter: 'split',
+                inputs: ['wave'],
+                outputs: ['wave1', 'wave2']
             },
             {
                 filter: 'scale',
                 options: {
-                    w: '800',
+                    w: '-1',
                     h: '600',
-                    force_original_aspect_ratio: 'decrease'
                 },
-                inputs: '1:v',
-                outputs: 'outv'
+                inputs: ['1:v'],
+                outputs: ['pic']
             },
             {
                 filter: 'overlay',
                 options: {
                     x: '(W-w)/2',
-                    y: '(H-h)/2'
+                    y: '40',
+                    eval: 'init'
                 },
-                inputs: ['outa', 'outv'],
-                outputs: 'out'
+                inputs: ['blackbg', 'wave1'],
+                outputs: ['waves']
             },
             {
-                filter: 'scale',
+                filter: 'overlay',
                 options: {
-                    w: '1920',
-                    h: '1080'
+                    x: '(W-w)/2',
+                    y: '640',
+                    eval: 'init'
                 },
-                inputs: 'out',
-                outputs: 'out'
+                inputs: ['waves', 'wave2'],
+                outputs: ['bg']
+            },
+            {
+                filter: 'overlay',
+                options: {
+                    x: '(W-w)/2',
+                    y: '(H-h)/2',
+                    eval: 'init'
+                },
+                inputs: ['bg', 'pic'],
+                outputs: ['out']
             }
-
         ], 'out')
         .outputOption(['-map 0:a'])
         .videoCodec('libx264')
@@ -54,17 +148,18 @@ function createVideo() {
         .audioCodec('aac')
         .audioBitrate(320)
         .outputOption(['-pix_fmt yuv420p'])
-        .fpsOutput(24)
+        .fpsOutput(12)
         .outputOption(['-preset ultrafast'])
         .outputOption(['-movflags +faststart'])
-        //.outputOption(['-profile:v high'])
-        //.outputOption(['-level 4.0'])
+        .outputOption(['-profile:v high'])
+        .outputOption(['-level 4.0'])
         .outputOption(['-bf 2'])
         .outputOption(['-g 12'])
         .outputOption(['-coder 1'])
         .audioChannels(2)
         .audioFrequency(48000)
         .outputOption(['-shortest'])
+        .duration(30)
         .on('start', function(commandLine) {
             output.innerHTML += 'Spawned Ffmpeg with command: ' + commandLine + '\n' +
                 'Beginning encoding\n';

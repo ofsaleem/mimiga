@@ -12,7 +12,7 @@
         <h1> Music file: <br>
             <input type="file" id="mp3file" size="80"> </h1>
         <h1> Image file: <br>
-            <input type="file" id="imagefile" size="80"> </h1>
+            <input type="file" id="imagefile" size="80" onchange="getImageWidth(this);"> </h1>
         <button type="button" onclick="createVideo()">Create Video</button>
         <button type="button" onclick="getFfmpeg()">Download ffmpeg</button>
         <button type="button" onclick="youtubeAuth()">Authenticate</button>
