@@ -26,9 +26,9 @@
         "appId": "com.electron.youtube-mp3-uploader-gui",
         "win": {
             "target": "NSIS"
+        },
+        "directories": {
+            "files": "credentials.json"
         }
-    },
-    "directories": {
-        "files": "credentials.json"
     }
 }

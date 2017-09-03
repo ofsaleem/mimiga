@@ -1,0 +1,48 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'dist' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.2
+4 verbose run-script [ 'predist', 'dist', 'postdist' ]
+5 info lifecycle youtube-mp3-uploader-gui@0.1.0~predist: youtube-mp3-uploader-gui@0.1.0
+6 silly lifecycle youtube-mp3-uploader-gui@0.1.0~predist: no script for predist, continuing
+7 info lifecycle youtube-mp3-uploader-gui@0.1.0~dist: youtube-mp3-uploader-gui@0.1.0
+8 verbose lifecycle youtube-mp3-uploader-gui@0.1.0~dist: unsafe-perm in lifecycle true
+9 verbose lifecycle youtube-mp3-uploader-gui@0.1.0~dist: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\Users\Omar\Documents\youtube-mp3-uploader-gui\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Livestreamer;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Users\Omar\AppData\Local\atom\bin;C:\Users\Omar\AppData\Local\Microsoft\WindowsApps;C:\adb;C:\Program Files (x86)\Streamlink\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\Omar\AppData\Local\atom\bin;C:\Users\Omar\AppData\Local\Microsoft\WindowsApps;C:\Users\Omar\AppData\Roaming\npm
+10 verbose lifecycle youtube-mp3-uploader-gui@0.1.0~dist: CWD: C:\Users\Omar\Documents\youtube-mp3-uploader-gui
+11 silly lifecycle youtube-mp3-uploader-gui@0.1.0~dist: Args: [ '/d /s /c', 'build' ]
+12 silly lifecycle youtube-mp3-uploader-gui@0.1.0~dist: Returned: code: 4294967295  signal: null
+13 info lifecycle youtube-mp3-uploader-gui@0.1.0~dist: Failed to exec dist script
+14 verbose stack Error: youtube-mp3-uploader-gui@0.1.0 dist: `build`
+14 verbose stack Exit status 4294967295
+14 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:255:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:891:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+15 verbose pkgid youtube-mp3-uploader-gui@0.1.0
+16 verbose cwd C:\Users\Omar\Documents\youtube-mp3-uploader-gui
+17 error Windows_NT 10.0.15063
+18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "dist"
+19 error node v6.11.2
+20 error npm  v3.10.10
+21 error code ELIFECYCLE
+22 error youtube-mp3-uploader-gui@0.1.0 dist: `build`
+22 error Exit status 4294967295
+23 error Failed at the youtube-mp3-uploader-gui@0.1.0 dist script 'build'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the youtube-mp3-uploader-gui package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     build
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs youtube-mp3-uploader-gui
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls youtube-mp3-uploader-gui
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
