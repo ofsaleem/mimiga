@@ -268,7 +268,7 @@ function createVideo() {
             filter: 'boxblur',
             options: [
                 '50',
-                '10'
+                '1'
             ],
             inputs: ['outa'],
             outputs: ['outa']
