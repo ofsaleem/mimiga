@@ -66,26 +66,21 @@ function createVideo() {
         .audioFrequency(48000)
         .outputOption(['-shortest'])
         .on('start', function(commandLine) {
-            //console.log('Spawned Ffmpeg with command: ' + commandLine);
             output.innerHTML += 'Spawned Ffmpeg with command: ' + commandLine + '\n' +
                 'Beginning encoding\n';
             output.scrollTop = output.scrollHeight - output.clientHeight;
         })
         .on('progress', function(progress) {
-            //console.log('Processing: ' + progress.percent + '% done');
-            //output.innerHTML += 'Processing: ' + progress.percent + '% done\n';
             var text = output.innerHTML;
             output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
             output.innerHTML += '\nProcessing: ' + progress.percent + '% done';
             output.scrollTop = output.scrollHeight - output.clientHeight;
         })
         .on('error', function(err) {
-            //console.log('An error occurred: ' + err.message);
             output.innerHTML += '\nAn error occurred: ' + err.message + '\n';
             output.scrollTop = output.scrollHeight - output.clientHeight;
         })
         .on('end', function() {
-            //console.log('Output finished!');
             output.innerHTML += '\nOutput finished!\n';
             output.scrollTop = output.scrollHeight - output.clientHeight;
         })
