@@ -1,3 +1,20 @@
-youtube uploader gui in electron
+youtube mp3 uploader gui in node + electron
 
 takes audio file and image file and creates a video, then uploads it to youtube
+
+1. select audio file
+2. select image file
+3. hit download ffmpeg (only need to do this once per install, or when you want to update ffmpeg)
+4. hit create video
+5. when thats complete, hit authenticate
+6. after authentication is complete, hit upload video
+
+currently it uploads with some dummy information as a private video on your account. you can change those things manually from your youtube channel
+
+since its using ffmpeg, the app should support any audio and image file types that ffmpeg works with.
+
+currently there's no robustness at all with this, so if you do anything not in the intended order, or input the files in the wrong places or something, the app will break.
+
+if you want, you can also use it to upload any video you want. just put the video in the root of the app directory and name it output.mp4 (not sure if it needs to be an actual mp4 or if youtube is smart enough to handle that), then just use the authenticate + upload buttons. if you hit create video at any point, it will override output.mp4.
+
+the app uses oauth2 to auth your youtube account so there's no user/pass system involved.
