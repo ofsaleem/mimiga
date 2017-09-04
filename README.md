@@ -5,10 +5,10 @@ takes audio file and image file and creates a video, then uploads it to youtube.
 1. select audio file
 2. select image file
 3. hit download ffmpeg (only need to do this once per install, or when you want to update ffmpeg)
-3.5 optionally choose visualizer. defaults to vectorscope.
-4. hit create video
-5. when thats complete, hit authenticate
-6. after authentication is complete, hit upload video
+4. optionally choose visualizer. defaults to vectorscope.
+5. hit create video
+6. when thats complete, hit authenticate
+7. after authentication is complete, hit upload video
 
 currently it uploads with some dummy information as a private video on your account. you can change those things manually from your youtube channel
 
