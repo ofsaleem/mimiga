@@ -1,6 +1,6 @@
 {
     "name": "youtube-mp3-uploader-gui",
-    "version": "0.5.0",
+    "version": "0.5.2",
     "main": "main.js",
     "devDependencies": {
         "electron": "latest",
