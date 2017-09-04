@@ -56,11 +56,13 @@ function uploadVideo() {
         notifySubscribers: false,
         resource: {
             snippet: {
-                title: 'Dragon Age Inquisition Title Theme',
-                description: 'Test upload tbh'
+                title: document.getElementById('vidtitle').value,
+                description: "Some of the best video game music around. I don\'t own any of this stuff, but I wanted to share, display, and reference these works of art in my gallery.\nEverything encoded and uploaded with https://github.com/ofsaleem/youtube-mp3-uploader-gui",
+                tags: ['music', 'vgmusic', "video game", "video games", 'games', 'gaming', 'consoles', 'pc', 'tracks', '8bit'],
+                categoryId: '20' // Gaming
             },
             status: {
-                privacyStatus: 'private'
+                privacyStatus: 'public'
             }
         },
         media: {
