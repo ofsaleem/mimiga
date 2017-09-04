@@ -7,18 +7,11 @@ function getImageWidth(input) {
         var img = new Image;
         img.onload = function() {
             var imagewidth = +img.width;
-            console.log("width: " + imagewidth + "\n");
             var imageheight = +img.height;
-            console.log("height: " + imageheight + "\n");
             var ar = imagewidth * 1.0 / imageheight;
-            console.log("ar before rounding: " + ar + "\n");
-            console.log("calculated ar: " + imagewidth * 1.0 / imageheight + "\n");
-            console.log("manually calculated: " + 1520/1379 + "\n");
             ar = +(parseFloat(ar.toFixed(2)));
-            console.log("rounded ar: " + ar + "\n");
             fixedimagewidth = 600 * ar;
             fixedimagewidth = +fixedimagewidth.toFixed(0);
-            console.log("fixedimagewidth: " + fixedimagewidth + "\n");
         };
         img.src = fr.result;
     };
@@ -26,7 +19,6 @@ function getImageWidth(input) {
 }
 
 function renderWithWaveforms(mp3path, imagepath, output) {
-    console.log("rendered fixedimagewidth: " + fixedimagewidth);
     ffmpeg().input(mp3path).input(imagepath)
     .inputOptions(['-loop 1'])
     .complexFilter([
