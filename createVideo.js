@@ -51,7 +51,7 @@ function renderWithWaveforms(mp3path, imagepath, output) {
             filter: 'scale',
             options: {
                 w: '-1',
-                h: '450',
+                h: '600',
             },
             inputs: ['1:v'],
             outputs: ['pic']
@@ -162,8 +162,8 @@ function renderWithVectorscope(mp3path, imagepath, output) {
         {
             filter: 'scale',
             options: {
-                w: '-1',
-                h: '450'
+                w: '500',
+                h: '-1'
             },
             inputs: '1:v',
             outputs: 'outv'
