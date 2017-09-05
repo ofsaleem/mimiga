@@ -51,7 +51,7 @@ function renderWithWaveforms(mp3path, imagepath, output) {
             filter: 'scale',
             options: {
                 w: '-1',
-                h: '600',
+                h: '450',
             },
             inputs: ['1:v'],
             outputs: ['pic']
@@ -103,7 +103,7 @@ function renderWithWaveforms(mp3path, imagepath, output) {
     .audioBitrate(320)
     .outputOption(['-pix_fmt yuv420p'])
     .fpsOutput(24)
-    .outputOption(['-preset fast'])
+    .outputOption(['-preset veryfast'])
     .outputOption(['-movflags +faststart'])
     .outputOption(['-profile:v high'])
     .outputOption(['-level 4.0'])
@@ -163,7 +163,7 @@ function renderWithVectorscope(mp3path, imagepath, output) {
             filter: 'scale',
             options: {
                 w: '-1',
-                h: '600'
+                h: '450'
             },
             inputs: '1:v',
             outputs: 'outv'
@@ -186,7 +186,7 @@ function renderWithVectorscope(mp3path, imagepath, output) {
     .audioBitrate(320)
     .outputOption(['-pix_fmt yuv420p'])
     .fpsOutput(24)
-    .outputOption(['-preset fast'])
+    .outputOption(['-preset veryfast'])
     .outputOption(['-movflags +faststart'])
     .outputOption(['-profile:v high'])
     .outputOption(['-level 4.0'])
