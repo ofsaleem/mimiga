@@ -10,6 +10,8 @@ takes audio file and image file and creates a video, then uploads it to youtube.
 6. when thats complete, hit authenticate
 7. after authentication is complete, hit upload video
 
+allows you to set the title but nothing else
+
 since its using ffmpeg, the app should support any audio and image file types that ffmpeg works with.
 
 currently there's no robustness at all with this, so if you do anything not in the intended order, or input the files in the wrong places or something, the app will break.
