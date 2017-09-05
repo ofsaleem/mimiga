@@ -53,7 +53,7 @@ function uploadVideo() {
 
     var req = youtube.videos.insert({
         part: 'id,snippet,status',
-        notifySubscribers: false,
+        notifySubscribers: true,
         resource: {
             snippet: {
                 title: document.getElementById('vidtitle').value,
