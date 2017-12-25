@@ -1,9 +1,9 @@
 {
     "name": "youtube-mp3-uploader-gui",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "main": "main.js",
     "devDependencies": {
-        "electron": "latest",
+        "electron": "^1.7.10",
         "electron-builder": "^19.49.2"
     },
     "dependencies": {
@@ -18,7 +18,7 @@
     },
     "scripts": {
         "postinstall": "install-app-deps",
-        "start": "npm install && electron ./app",
+        "start": "npm install && electron .",
         "pack": "build --dir",
         "dist": "build"
     },
