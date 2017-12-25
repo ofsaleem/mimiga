@@ -5,5 +5,3 @@ credentials.json
 *.mp4
 /dist/
 yarn.lock
-
- 
