@@ -3,17 +3,20 @@
  *
  * @author Dave Longley
  *
- * Copyright (c) 2010-2014 Digital Bazaar, Inc.
+ * Copyright (c) 2010-2018 Digital Bazaar, Inc.
  */
 var forge = require('./forge');
+var baseN = require('./baseN');
 
 /* Utilities API */
 var util = module.exports = forge.util = forge.util || {};
 
 // define setImmediate and nextTick
 (function() {
-  // use native nextTick
-  if(typeof process !== 'undefined' && process.nextTick) {
+  // use native nextTick (unless we're in webpack)
+  // webpack (or better node-libs-browser polyfill) sets process.browser.
+  // this way we can detect webpack properly
+  if(typeof process !== 'undefined' && process.nextTick && !process.browser) {
     util.nextTick = process.nextTick;
     if(typeof setImmediate === 'function') {
       util.setImmediate = setImmediate;
@@ -159,14 +162,18 @@ function ByteStringBuffer(b) {
   if(typeof b === 'string') {
     this.data = b;
   } else if(util.isArrayBuffer(b) || util.isArrayBufferView(b)) {
-    // convert native buffer to forge buffer
-    // FIXME: support native buffers internally instead
-    var arr = new Uint8Array(b);
-    try {
-      this.data = String.fromCharCode.apply(null, arr);
-    } catch(e) {
-      for(var i = 0; i < arr.length; ++i) {
-        this.putByte(arr[i]);
+    if(typeof Buffer !== 'undefined' && b instanceof Buffer) {
+      this.data = b.toString('binary');
+    } else {
+      // convert native buffer to forge buffer
+      // FIXME: support native buffers internally instead
+      var arr = new Uint8Array(b);
+      try {
+        this.data = String.fromCharCode.apply(null, arr);
+      } catch(e) {
+        for(var i = 0; i < arr.length; ++i) {
+          this.putByte(arr[i]);
+        }
       }
     }
   } else if(b instanceof ByteStringBuffer ||
@@ -1541,6 +1548,9 @@ var _base64Idx = [
    39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51
 ];
 
+// base58 characters (Bitcoin alphabet)
+var _base58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
 /**
  * Base64 encodes a 'binary' encoded string of bytes.
  *
@@ -1646,7 +1656,12 @@ util.decodeUtf8 = function(str) {
 util.binary = {
   raw: {},
   hex: {},
-  base64: {}
+  base64: {},
+  base58: {},
+  baseN : {
+    encode: baseN.encode,
+    decode: baseN.decode
+  }
 };
 
 /**
@@ -1803,9 +1818,15 @@ util.binary.base64.decode = function(input, output, offset) {
   }
 
   // make sure result is the exact decoded length
-  return output ?
-         (j - offset) :
-         out.subarray(0, j);
+  return output ? (j - offset) : out.subarray(0, j);
+};
+
+// add support for base58 encoding/decoding with Bitcoin alphabet
+util.binary.base58.encode = function(input, maxline) {
+  return util.binary.baseN.encode(input, _base58, maxline);
+};
+util.binary.base58.decode = function(input, maxline) {
+  return util.binary.baseN.decode(input, _base58, maxline);
 };
 
 // text encoding/decoding tools
