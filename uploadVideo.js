@@ -1,7 +1,7 @@
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var Lien = require('lien');
-var opn = require('opn');
+var open = require('open');
 var util = require('util');
 var readline = require('readline');
 var fs = require("fs");
@@ -26,7 +26,7 @@ var server = new Lien({
 
 
 function youtubeAuth() {
-    opn(url);
+    open(url);
     server.addPage("/oauth2callback", lien => {
         output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
         output.scrollTop = output.scrollHeight - output.clientHeight;
