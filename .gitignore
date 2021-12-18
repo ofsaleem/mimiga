@@ -4,3 +4,4 @@ ffprobe.exe
 credentials.json
 *.mp4
 /dist/
+node_modules
