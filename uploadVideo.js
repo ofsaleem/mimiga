@@ -1,9 +1,3 @@
-const { shell } = require('electron');
-const google = require('googleapis');
-const Lien = require('lien');
-const util = require('util');
-const fs = require("fs");
-
 let OAuth2 = google.auth.OAuth2;
 const scopes = ['https://www.googleapis.com/auth/youtube.upload'];
 let output = document.getElementById('output');

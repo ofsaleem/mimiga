@@ -1,6 +1,4 @@
 let fixedimagewidth = 600;
-const ffmpeg = require('fluent-ffmpeg');
-
 function getImageWidth(input) {
     let fr = new FileReader;
     fr.onload = function() {
