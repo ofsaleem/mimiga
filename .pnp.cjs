@@ -43,7 +43,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["googleapis", "npm:92.0.0"],
             ["lien", "npm:3.3.1"],
             ["open", "npm:8.4.0"],
-            ["readline", "npm:1.3.0"],
             ["util", "npm:0.12.4"]
           ],
           "linkType": "SOFT",
@@ -4204,15 +4203,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["readline", [
-        ["npm:1.3.0", {
-          "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/readline-npm-1.3.0-c1788eeabc-8.zip/node_modules/readline/",
-          "packageDependencies": [
-            ["readline", "npm:1.3.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["registry-auth-token", [
         ["npm:4.2.1", {
           "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/registry-auth-token-npm-4.2.1-200e2be697-8.zip/node_modules/registry-auth-token/",
@@ -5413,7 +5403,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["googleapis", "npm:92.0.0"],
             ["lien", "npm:3.3.1"],
             ["open", "npm:8.4.0"],
-            ["readline", "npm:1.3.0"],
             ["util", "npm:0.12.4"]
           ],
           "linkType": "SOFT",
