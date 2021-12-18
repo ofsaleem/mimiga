@@ -61,7 +61,7 @@ function uploadVideo() {
                 categoryId: '20' // Gaming
             },
             status: {
-                privacyStatus: 'public'
+                privacyStatus: 'private'
             }
         },
         media: {
