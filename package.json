@@ -18,7 +18,7 @@
     },
     "scripts": {
         "postinstall": "install-app-deps",
-        "start": "npm install && electron .",
+        "start": "yarn install && electron .",
         "pack": "build --dir",
         "dist": "build"
     },
