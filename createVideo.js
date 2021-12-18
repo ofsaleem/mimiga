@@ -1,14 +1,14 @@
-var fixedimagewidth = 600;
-var ffmpeg = require('fluent-ffmpeg');
+let fixedimagewidth = 600;
+const ffmpeg = require('fluent-ffmpeg');
 
 function getImageWidth(input) {
-    var fr = new FileReader;
+    let fr = new FileReader;
     fr.onload = function() {
-        var img = new Image;
+        let img = new Image;
         img.onload = function() {
-            var imagewidth = +img.width;
-            var imageheight = +img.height;
-            var ar = imagewidth * 1.0 / imageheight;
+            let imagewidth = +img.width;
+            let imageheight = +img.height;
+            let ar = imagewidth * 1.0 / imageheight;
             ar = +(parseFloat(ar.toFixed(2)));
             fixedimagewidth = 600 * ar;
             fixedimagewidth = +fixedimagewidth.toFixed(0);
@@ -119,7 +119,7 @@ function renderWithWaveforms(mp3path, imagepath, output) {
         output.scrollTop = output.scrollHeight - output.clientHeight;
     })
     .on('progress', function(progress) {
-        var text = output.innerHTML;
+        let text = output.innerHTML;
         output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
         output.innerHTML += '\nProcessing: ' + progress.percent + '% done';
         output.scrollTop = output.scrollHeight - output.clientHeight;
@@ -202,7 +202,7 @@ function renderWithVectorscope(mp3path, imagepath, output) {
         output.scrollTop = output.scrollHeight - output.clientHeight;
     })
     .on('progress', function(progress) {
-        var text = output.innerHTML;
+        let text = output.innerHTML;
         output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
         output.innerHTML += '\nProcessing: ' + progress.percent + '% done';
         output.scrollTop = output.scrollHeight - output.clientHeight;
@@ -219,10 +219,10 @@ function renderWithVectorscope(mp3path, imagepath, output) {
 }
 
 function createVideo() {
-    var mp3path = document.getElementById("mp3file").files[0].path;
-    var imagepath = document.getElementById("imagefile").files[0].path;
-    var output = document.getElementById('output');
-    var visualizer = document.getElementById('visualizer');
+    let mp3path = document.getElementById("mp3file").files[0].path;
+    let imagepath = document.getElementById("imagefile").files[0].path;
+    let output = document.getElementById('output');
+    let visualizer = document.getElementById('visualizer');
     if (visualizer.value == 'vectorscope') {
         renderWithVectorscope(mp3path, imagepath, output);
     }
@@ -232,8 +232,8 @@ function createVideo() {
 }
 
 function getFfmpeg() {
-    var ffbinaries = require ('ffbinaries');
-    var platform = ffbinaries.detectPlatform();
+    const ffbinaries = require ('ffbinaries');
+    let platform = ffbinaries.detectPlatform();
     ffbinaries.downloadFiles(['ffmpeg', 'ffprobe'], {platform: platform}, function() {
         output.innerHTML += '\nDownloaded ffmpeg and ffprobe for platform ' + platform;
         output.scrollTop = output.scrollHeight - output.clientHeight;

@@ -1,31 +1,31 @@
-var google = require('googleapis');
-var OAuth2 = google.auth.OAuth2;
-var Lien = require('lien');
-var open = require('open');
-var util = require('util');
-var fs = require("fs");
-var scopes = ['https://www.googleapis.com/auth/youtube.upload'];
-var output = document.getElementById('output');
-var file = fs.readFileSync("credentials.json");
+const google = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+const Lien = require('lien');
+const shell = require('electron');
+const util = require('util');
+const fs = require("fs");
+const scopes = ['https://www.googleapis.com/auth/youtube.upload'];
+let output = document.getElementById('output');
+let file = fs.readFileSync("credentials.json");
 const CREDENTIALS = JSON.parse(file);
-var oauth2Client = new OAuth2(
+let oauth2Client = new OAuth2(
     CREDENTIALS.web.client_id,
     CREDENTIALS.web.client_secret,
     CREDENTIALS.web.redirect_uris[0]
 );
-var url = oauth2Client.generateAuthUrl({
+let url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes
 });
 
-var server = new Lien({
+let server = new Lien({
     host: "localhost",
     port: 5000
 });
 
 
 function youtubeAuth() {
-    open(url);
+    shell.openExternal('https://google.com');
     server.addPage("/oauth2callback", lien => {
         output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
         output.scrollTop = output.scrollHeight - output.clientHeight;
@@ -45,12 +45,12 @@ function youtubeAuth() {
 }
 
 function uploadVideo() {
-    var youtube = google.youtube({
+    let youtube = google.youtube({
         version: 'v3',
         auth: oauth2Client
     });
 
-    var req = youtube.videos.insert({
+    let req = youtube.videos.insert({
         part: 'id,snippet,status',
         notifySubscribers: true,
         resource: {
@@ -80,14 +80,14 @@ function uploadVideo() {
         //process.exit();
     });
 
-    var fileSize = fs.statSync('output.mp4').size;
+    let fileSize = fs.statSync('output.mp4').size;
 
-    var id = setInterval(function () {
-        var uploadedBytes = req.req.connection._bytesDispatched;
-        var uploadedMBytes = uploadedBytes / 1000000;
-        var progress = uploadedBytes > fileSize
+    let id = setInterval(function () {
+        let uploadedBytes = req.req.connection._bytesDispatched;
+        let uploadedMBytes = uploadedBytes / 1000000;
+        let progress = uploadedBytes > fileSize
             ? 100 : (uploadedBytes / fileSize) * 100;
-        var text = output.innerHTML;
+        let text = output.innerHTML;
         output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
         output.innerHTML += '\n' + uploadedMBytes.toFixed(2) + 'MBs uploaded. ' +
             progress.toFixed(2) + '% completed.';
