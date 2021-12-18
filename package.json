@@ -18,9 +18,7 @@
     },
     "scripts": {
         "postinstall": "install-app-deps",
-        "start": "yarn install && electron .",
-        "pack": "build --dir",
-        "dist": "build"
+        "start": "yarn install && electron ."
     },
     "build": {
         "appId": "com.electron.youtube-mp3-uploader-gui",
@@ -30,5 +28,6 @@
         "extraFiles": [
             "credentials.json"
         ]
-    }
+    },
+    "packageManager": "yarn@3.1.1"
 }
