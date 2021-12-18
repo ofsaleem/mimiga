@@ -42,7 +42,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fs", "npm:0.0.1-security"],
             ["googleapis", "npm:92.0.0"],
             ["lien", "npm:3.3.1"],
-            ["open", "npm:8.4.0"],
             ["util", "npm:0.12.4"]
           ],
           "linkType": "SOFT",
@@ -1455,15 +1454,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["deffy", "npm:2.2.4"],
             ["typpy", "npm:2.3.13"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["define-lazy-prop", [
-        ["npm:2.0.0", {
-          "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/define-lazy-prop-npm-2.0.0-bba0cd91a7-8.zip/node_modules/define-lazy-prop/",
-          "packageDependencies": [
-            ["define-lazy-prop", "npm:2.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -2887,15 +2877,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["is-docker", [
-        ["npm:2.2.1", {
-          "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/is-docker-npm-2.2.1-3f18a53aff-8.zip/node_modules/is-docker/",
-          "packageDependencies": [
-            ["is-docker", "npm:2.2.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["is-fullwidth-code-point", [
         ["npm:3.0.0", {
           "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/is-fullwidth-code-point-npm-3.0.0-1ecf4ebee5-8.zip/node_modules/is-fullwidth-code-point/",
@@ -3069,16 +3050,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["is-weakref", "npm:1.0.2"],
             ["call-bind", "npm:1.0.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["is-wsl", [
-        ["npm:2.2.0", {
-          "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/is-wsl-npm-2.2.0-2ba10d6393-8.zip/node_modules/is-wsl/",
-          "packageDependencies": [
-            ["is-wsl", "npm:2.2.0"],
-            ["is-docker", "npm:2.2.1"]
           ],
           "linkType": "HARD",
         }]
@@ -3826,18 +3797,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["one-by-one", "npm:3.2.8"],
             ["obj-def", "npm:1.0.9"],
             ["sliced", "npm:1.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["open", [
-        ["npm:8.4.0", {
-          "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/open-npm-8.4.0-df63cfe537-8.zip/node_modules/open/",
-          "packageDependencies": [
-            ["open", "npm:8.4.0"],
-            ["define-lazy-prop", "npm:2.0.0"],
-            ["is-docker", "npm:2.2.1"],
-            ["is-wsl", "npm:2.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -5402,7 +5361,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fs", "npm:0.0.1-security"],
             ["googleapis", "npm:92.0.0"],
             ["lien", "npm:3.3.1"],
-            ["open", "npm:8.4.0"],
             ["util", "npm:0.12.4"]
           ],
           "linkType": "SOFT",

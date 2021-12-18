@@ -12,7 +12,6 @@
         "fs": "0.0.1-security",
         "googleapis": "^92.0.0",
         "lien": "^3.3.1",
-        "open": "^8.4.0",
         "util": "^0.12.4"
     },
     "scripts": {
