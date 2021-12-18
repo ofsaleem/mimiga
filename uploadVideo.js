@@ -1,9 +1,10 @@
+const { shell } = require('electron');
 const google = require('googleapis');
-const OAuth2 = google.auth.OAuth2;
 const Lien = require('lien');
-const shell = require('electron');
 const util = require('util');
 const fs = require("fs");
+
+let OAuth2 = google.auth.OAuth2;
 const scopes = ['https://www.googleapis.com/auth/youtube.upload'];
 let output = document.getElementById('output');
 let file = fs.readFileSync("credentials.json");
@@ -25,6 +26,7 @@ let server = new Lien({
 
 
 function youtubeAuth() {
+    const { shell } = require('electron');
     shell.openExternal('https://google.com');
     server.addPage("/oauth2callback", lien => {
         output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
