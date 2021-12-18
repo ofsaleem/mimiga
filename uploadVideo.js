@@ -20,7 +20,6 @@ let server = new Lien({
 
 
 function youtubeAuth() {
-    const { shell } = require('electron');
     shell.openExternal('https://google.com');
     server.addPage("/oauth2callback", lien => {
         output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
