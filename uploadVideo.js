@@ -3,7 +3,6 @@ var OAuth2 = google.auth.OAuth2;
 var Lien = require('lien');
 var open = require('open');
 var util = require('util');
-var readline = require('readline');
 var fs = require("fs");
 var scopes = ['https://www.googleapis.com/auth/youtube.upload'];
 var output = document.getElementById('output');
