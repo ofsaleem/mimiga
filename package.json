@@ -1,13 +1,15 @@
 {
     "name": "youtube-mp3-uploader-gui",
-    "version": "0.6.0",
+    "description": "takes audio file and image file and creates a video, then uploads it to youtube. also adds one of two visualizers",
+    "author": "github.com/ofsaleem",
+    "version": "0.7.0",
     "main": "main.js",
     "devDependencies": {
-        "electron": "^16.0.5",
+        "electron": "16.0.5",
         "electron-builder": "^22.14.5"
     },
     "dependencies": {
-        "ffbinaries": "^1.1.4",
+        "ffbinaries-extra": "^1.1.1",
         "fluent-ffmpeg": "^2.1.2",
         "fs": "0.0.1-security",
         "googleapis": "^92.0.0",
@@ -15,8 +17,10 @@
         "util": "^0.12.4"
     },
     "scripts": {
-        "postinstall": "install-app-deps",
-        "start": "yarn install && electron ."
+        "x-postinstall": "yarn electron-builder install-app-deps",
+        "start": "yarn install && electron .",
+        "pack": "yarn electron-builder --dir",
+        "dist": "yarn electron-builder"
     },
     "build": {
         "appId": "com.electron.youtube-mp3-uploader-gui",
