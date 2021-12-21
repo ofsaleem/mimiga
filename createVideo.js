@@ -230,7 +230,7 @@ function createVideo() {
 }
 
 function getFfmpeg() {
-    const ffbinaries = require ('ffbinaries');
+    const ffbinaries = require('ffbinaries-extra');
     let platform = ffbinaries.detectPlatform();
     ffbinaries.downloadFiles(['ffmpeg', 'ffprobe'], {platform: platform}, function() {
         output.innerHTML += '\nDownloaded ffmpeg and ffprobe for platform ' + platform;
