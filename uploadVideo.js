@@ -1,3 +1,9 @@
+const google = require('googleapis');
+const Lien = require('lien');
+const util = require('util');
+const fs = require("fs");
+const ffmpeg = require('fluent-ffmpeg');
+
 let OAuth2 = google.auth.OAuth2;
 const scopes = ['https://www.googleapis.com/auth/youtube.upload'];
 let output = document.getElementById('output');
