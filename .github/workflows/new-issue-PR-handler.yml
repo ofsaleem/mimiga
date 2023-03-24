@@ -1,13 +1,16 @@
-name: Add new issues to project
+name: Add new issues and PRs to project
 
 on:
   issues:
     types:
       - opened
+  pull_request:
+    types:
+      - opened
 
 jobs:
   add-to-project:
-    name: Add issue to project
+    name: Add issue/PR to project
     runs-on: ubuntu-latest
     steps:
       - uses: actions/add-to-project@RELEASE_VERSION
