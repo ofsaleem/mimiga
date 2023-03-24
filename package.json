@@ -1,0 +1,33 @@
+{
+  "name": "youtube-fresh",
+  "version": "0.0.1",
+  "description": "fresh start for youtube project",
+  "author": "github.com/ofsaleem",
+  "main": "main.js",
+  "packageManager": "yarn@3.1.1",
+  "devDependencies": {
+    "electron": "16.0.5",
+    "electron-builder": "^22.14.5"
+  },
+  "scripts": {
+    "start": "yarn install && yarn electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.electron.youtube-mp3-uploader-gui-fresh",
+    "mac": {
+      "category": "public.app-category.music"
+    },
+    "win": {
+      "target": "NSIS"
+    },
+    "extraFiles": [
+      "credentials.json"
+    ]
+  },
+  "dependencies": {
+    "ffbinaries-extra": "^1.1.1",
+    "fluent-ffmpeg": "^2.1.2"
+  }
+}
