@@ -33,24 +33,27 @@ contextBridge.exposeInMainWorld(
   }
 );
 
-contextBridge.exposeInMainWorld(
-  "api", {
-      send: (channel, data) => {
-          // whitelist channels
-          let validChannels = ["ffbinaries", "ffmpeg"];
-          if (validChannels.includes(channel)) {
-              ipcRenderer.send(channel, data);
-          }
-      },
-      receive: (channel, func) => {
-          let validChannels = ["fromMain"];
-          if (validChannels.includes(channel)) {
-              // Deliberately strip event as it includes `sender` 
-              ipcRenderer.on(channel, (event, ...args) => func(...args));
-          }
-      }
-  }
-);
+// i don't think we need this anymore because i wrote wrappers for all the 
+// functions already:
+
+// contextBridge.exposeInMainWorld(
+//   "api", {
+//       send: (channel, data) => {
+//           // whitelist channels
+//           let validChannels = ["ffbinaries", "ffmpeg"];
+//           if (validChannels.includes(channel)) {
+//               ipcRenderer.send(channel, data);
+//           }
+//       },
+//       receive: (channel, func) => {
+//           let validChannels = ["fromMain"];
+//           if (validChannels.includes(channel)) {
+//               // Deliberately strip event as it includes `sender` 
+//               ipcRenderer.on(channel, (event, ...args) => func(...args));
+//           }
+//       }
+//   }
+// );
 
 
 ipcRenderer.on('ffmpeg-encoding-start', (event, commandLine) => {
