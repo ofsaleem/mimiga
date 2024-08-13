@@ -66,7 +66,8 @@ ipcRenderer.on('ffmpeg-encoding-start', (event, commandLine) => {
 ipcRenderer.on('ffmpeg-encoding-progress', (event, progress) => {
   let text = output.innerHTML;
   output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
-  output.innerHTML += '\nProcessing: ' + progress.percent + '% done';
+  let num = new Number(progress.percent)
+  output.innerHTML += '\nProcessing: ' + num.toFixed(2) + '% done';
   output.scrollTop = output.scrollHeight - output.clientHeight;
 });
 
@@ -76,6 +77,9 @@ ipcRenderer.on('ffmpeg-encoding-error', (event, err) => {
 });
 
 ipcRenderer.on('ffmpeg-encoding-end', () => {
+  let text = output.innerHTML;
+  output.innerHTML = text.replace(/\r?\n?[^\r\n]*$/, "");
+  output.innerHTML += '\nProcessing: 100% done';
   output.innerHTML += '\nOutput finished!\n';
   output.scrollTop = output.scrollHeight - output.clientHeight;
 });
