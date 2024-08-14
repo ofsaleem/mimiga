@@ -32,6 +32,13 @@ contextBridge.exposeInMainWorld(
     renderWithWaveforms: (mp3path, imagepath, fixedImageWidth) => renderWithWaveforms(mp3path, imagepath, fixedImageWidth)
   }
 );
+contextBridge.exposeInMainWorld(
+  'youtube',
+  {
+    auth: () => {},
+    upload: () => {}
+  }
+);
 
 // i don't think we need this anymore because i wrote wrappers for all the 
 // functions already:
