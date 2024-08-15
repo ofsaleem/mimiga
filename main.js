@@ -3,6 +3,8 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const ffbinaries = require('ffbinaries-extra');
 const ffmpeg = require('fluent-ffmpeg');
+import readFile from 'fs'
+const google = require('googleapis');
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -221,3 +223,5 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
   })
   .save('output.mp4');
 });
+
+const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
