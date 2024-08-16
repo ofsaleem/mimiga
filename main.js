@@ -6,11 +6,11 @@ import ffmpeg from 'fluent-ffmpeg';
 import { readFile } from 'fs';
 import { randomBytes } from 'crypto';
 import { google } from 'googleapis';
-import lien from 'lien';
+import Lien from 'lien';
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 const OAuth2 = google.auth.OAuth2
 
-function createWindow () {
+const createWindow = () => {
     const win = new BrowserWindow({
       width: 1280,
       height: 720,
@@ -228,24 +228,24 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
   .save('output.mp4');
 });
 
-const createAuthClient = async () => {
+// auth stuff, this will need to be organized and use IPC 
+const parseCreds = async () => {
     readFile('credentials.json', (err, data) => {
         if (err) {
             win.webContents.send('log', err);
             return;
         }
-        let projectCreds = data;
-        let oauth2Client = new OAuth2(
-            projectCreds.web.client_id,
-            projectCreds.web.client_secret,
-            projectCreds.web.redirect_uris[0]
+        oauth2Client = new OAuth2(
+            data.web.client_id,
+            data.web.client_secret,
+            data.web.redirect_uris[0]
         );
+        createAuthClient(data);
     });
-    return oauth2Client;
 };
 const projectAuthClient = createAuthClient();
 const state = randomBytes(32).toString('hex');
-const server = new lien({
+const server = new Lien({
     host: "localhost",
     port: 5000
 });
@@ -255,5 +255,22 @@ const authUrl = await projectAuthClient.generateAuthUrl({
     include_granted_scopes: true,
     state: state
 });
-const res = await projectAuthClient.request({authUrl});
+await shell.openExternal(authUrl);
+server.addPage("/oauth2callback", lien => {
+    output.innerHTML += "Trying to get the token using the following code: " + lien.query.code + '\n';
+    output.scrollTop = output.scrollHeight - output.clientHeight;
+    projectAuthClient.getToken(lien.query.code, (err, tokens) => {
+        if (err) {
+            lien.lien(err, 400);
+            output.innerHMTL += err + '\n';
+            output.scrollTop = output.scrollHeight - output.clientHeight;
+            win.webContents.send('log', err);
+            return;
+        }
+        output.innerHTML += "Got the tokens\n";
+        output.scrollTop = output.scrollHeight - output.clientHeight;
+        projectAuthClient.setCredentials(tokens);
+        lien.end("Authentication successful. Please return to the app");
+    });
+});
 // dont forget to validate state var
