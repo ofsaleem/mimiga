@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const ffbinaries = require('ffbinaries-extra');
 const ffmpeg = require('fluent-ffmpeg');
-import readFile from 'fs'
+import readFile from 'fs';
 const google = require('googleapis');
 
 function createWindow () {
@@ -225,3 +225,18 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
 });
 
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
+let projectCreds;
+fs.readFile('credentials.json', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    projectCreds = data
+    let oauth2Client = new OAuth2(
+        projectCreds.web.client_id,
+        projectCreds.web.client_secret,
+        projectCreds.web.redirect_uris[0]
+    );
+});
+
+
