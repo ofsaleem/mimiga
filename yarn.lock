@@ -151,6 +151,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/fluent-ffmpeg@npm:^2.1.25":
+  version: 2.1.25
+  resolution: "@types/fluent-ffmpeg@npm:2.1.25"
+  dependencies:
+    "@types/node": "*"
+  checksum: 041bfc546dc0da68cb0fd45d4675db5d4061872a375812eb00a5fc4b54fdac32830de03fc903f7ad706fe0695c598257d8bff987b2f15148c21d07baa6d8992a
+  languageName: node
+  linkType: hard
+
 "@types/fs-extra@npm:^9.0.11":
   version: 9.0.13
   resolution: "@types/fs-extra@npm:9.0.13"
@@ -4181,6 +4190,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "youtube-fresh@workspace:."
   dependencies:
+    "@types/fluent-ffmpeg": ^2.1.25
     electron: 16.0.5
     electron-builder: ^22.14.5
     ffbinaries-extra: ^1.1.1

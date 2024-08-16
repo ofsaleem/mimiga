@@ -1,10 +1,13 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+import { app, BrowserWindow, ipcMain } from 'electron';
 // include the Node.js 'path' module at the top of your file
-const path = require('path');
-const ffbinaries = require('ffbinaries-extra');
-const ffmpeg = require('fluent-ffmpeg');
+import path from 'path';
+import ffbinaries from 'ffbinaries-extra';
+import ffmpeg from 'fluent-ffmpeg';
 import readFile from 'fs';
-const google = require('googleapis');
+import randomBytes from 'crypto';
+import OAuth2 from 'googleapis';
+import req from 'express';
+import session from 'express-session';
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
 function createWindow () {
@@ -226,7 +229,7 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
 });
 
 const createAuthClient = async () => {
-    fs.readFile('credentials.json', (err, data) => {
+    readFile('credentials.json', (err, data) => {
         if (err) {
             win.webContents.send('log', err);
             return;
@@ -241,7 +244,10 @@ const createAuthClient = async () => {
     return oauth2Client;
 };
 const projectAuthClient = createAuthClient();
+const state = randomBytes[32].toString('hex');
 let authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
-    scope: SCOPES
+    scope: SCOPES,
+    include_granted_scopes: true,
+    state: state
 });
