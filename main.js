@@ -235,6 +235,7 @@ const parseCreds = async () => {
             win.webContents.send('log', err);
             return;
         }
+        // remove this next part and put it into createAuthClient ?
         oauth2Client = new OAuth2(
             data.web.client_id,
             data.web.client_secret,
