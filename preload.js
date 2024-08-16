@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron')
+import { contextBridge, ipcRenderer } from 'electron';
 
 const downloadFFBinaries = () => {
   return ipcRenderer.invoke('get-ffbinaries').then(result => {
