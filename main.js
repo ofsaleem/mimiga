@@ -5,6 +5,7 @@ const ffbinaries = require('ffbinaries-extra');
 const ffmpeg = require('fluent-ffmpeg');
 import readFile from 'fs';
 const google = require('googleapis');
+const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -224,19 +225,23 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
   .save('output.mp4');
 });
 
-const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
-let projectCreds;
-fs.readFile('credentials.json', (err, data) => {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    projectCreds = data
-    let oauth2Client = new OAuth2(
-        projectCreds.web.client_id,
-        projectCreds.web.client_secret,
-        projectCreds.web.redirect_uris[0]
-    );
+const createAuthClient = async () => {
+    fs.readFile('credentials.json', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        projectCreds = data
+        oauth2Client = new OAuth2(
+            projectCreds.web.client_id,
+            projectCreds.web.client_secret,
+            projectCreds.web.redirect_uris[0]
+        );
+    });
+    return oauth2Client;
+};
+const projectAuthClient = createAuthClient();
+let authUrl = await projectAuthClient.generateAuthUrl({
+    access_type: 'offline',
+    scope: SCOPES
 });
-
-
