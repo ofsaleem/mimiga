@@ -5,11 +5,10 @@ import ffbinaries from 'ffbinaries-extra';
 import ffmpeg from 'fluent-ffmpeg';
 import { readFile } from 'fs';
 import { randomBytes } from 'crypto';
-import { oauth2_v2 } from 'googleapis';
-import 'express';
-import session from 'express-session';
+import { google } from 'googleapis';
+import lien from 'lien';
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
-const OAuth2 = oauth2_v2.Oauth2
+const OAuth2 = google.auth.OAuth2
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -254,3 +253,7 @@ const authUrl = await projectAuthClient.generateAuthUrl({
     state: state
 });
 const res = await projectAuthClient.request({authUrl});
+const server = new lien({
+    host: "localhost",
+    port: 5000
+});
