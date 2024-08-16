@@ -245,7 +245,10 @@ const createAuthClient = async () => {
 };
 const projectAuthClient = createAuthClient();
 const state = randomBytes(32).toString('hex');
-req.session.state = state;
+const server = new lien({
+    host: "localhost",
+    port: 5000
+});
 const authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
@@ -253,7 +256,4 @@ const authUrl = await projectAuthClient.generateAuthUrl({
     state: state
 });
 const res = await projectAuthClient.request({authUrl});
-const server = new lien({
-    host: "localhost",
-    port: 5000
-});
+// dont forget to validate state var
