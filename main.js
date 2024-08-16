@@ -228,7 +228,7 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
 const createAuthClient = async () => {
     fs.readFile('credentials.json', (err, data) => {
         if (err) {
-            window.webContents.send('log', err);
+            win.webContents.send('log', err);
             return;
         }
         projectCreds = data
