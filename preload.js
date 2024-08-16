@@ -90,3 +90,7 @@ ipcRenderer.on('ffmpeg-encoding-end', () => {
   output.innerHTML += '\nOutput finished!\n';
   output.scrollTop = output.scrollHeight - output.clientHeight;
 });
+
+ipcRenderer.on('log', (log) => {
+  console.log(log)
+});
