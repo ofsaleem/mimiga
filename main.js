@@ -3,12 +3,13 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import ffbinaries from 'ffbinaries-extra';
 import ffmpeg from 'fluent-ffmpeg';
-import readFile from 'fs';
+import { readFile } from 'fs';
 import { randomBytes } from 'crypto';
-import OAuth2 from 'googleapis';
+import { oauth2_v2 } from 'googleapis';
 import 'express';
 import session from 'express-session';
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
+const OAuth2 = oauth2_v2.Oauth2
 
 function createWindow () {
     const win = new BrowserWindow({
@@ -234,8 +235,8 @@ const createAuthClient = async () => {
             win.webContents.send('log', err);
             return;
         }
-        projectCreds = data;
-        oauth2Client = new OAuth2(
+        let projectCreds = data;
+        let oauth2Client = new OAuth2(
             projectCreds.web.client_id,
             projectCreds.web.client_secret,
             projectCreds.web.redirect_uris[0]
@@ -245,11 +246,11 @@ const createAuthClient = async () => {
 };
 const projectAuthClient = createAuthClient();
 const state = randomBytes(32).toString('hex');
-session.state = state;
+req.session.state = state;
 const authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
     include_granted_scopes: true,
     state: state
 });
-res.redirect(authorizationUrl);
+const res = await projectAuthClient.request({authUrl});
