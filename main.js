@@ -244,7 +244,7 @@ const createAuthClient = async () => {
     return oauth2Client;
 };
 const projectAuthClient = createAuthClient();
-const state = randomBytes[32].toString('hex');
+const state = randomBytes(32).toString('hex');
 req.session.state = state;
 const authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
