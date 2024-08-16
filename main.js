@@ -246,9 +246,10 @@ const createAuthClient = async () => {
 const projectAuthClient = createAuthClient();
 const state = randomBytes[32].toString('hex');
 req.session.state = state;
-let authUrl = await projectAuthClient.generateAuthUrl({
+const authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
     include_granted_scopes: true,
     state: state
 });
+res.redirect(authorizationUrl);
