@@ -4,7 +4,7 @@ import path from 'path';
 import ffbinaries from 'ffbinaries-extra';
 import ffmpeg from 'fluent-ffmpeg';
 import readFile from 'fs';
-import randomBytes from 'crypto';
+import { randomBytes } from 'crypto';
 import OAuth2 from 'googleapis';
 import 'express';
 import session from 'express-session';
@@ -21,17 +21,17 @@ function createWindow () {
     win.loadFile('index.html')
     // Open the DevTools.
     win.webContents.openDevTools();
-  }
+}
 
 app.whenReady().then(() => {
-    createWindow()
+    createWindow();
     app.on('activate', function () {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+        if (BrowserWindow.getAllWindows().length === 0) { createWindow(); }
     })
 })
 
 app.on('window-all-closed', function () {
-    if (process.platform !== 'darwin') app.quit()
+    if (process.platform !== 'darwin') { app.quit(); }
 })
 
 ipcMain.handle('get-ffbinaries', async (event, arg) => {
@@ -245,7 +245,7 @@ const createAuthClient = async () => {
 };
 const projectAuthClient = createAuthClient();
 const state = randomBytes(32).toString('hex');
-req.session.state = state;
+session.state = state;
 const authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
