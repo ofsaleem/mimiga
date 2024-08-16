@@ -6,7 +6,7 @@ import ffmpeg from 'fluent-ffmpeg';
 import readFile from 'fs';
 import randomBytes from 'crypto';
 import OAuth2 from 'googleapis';
-import req from 'express';
+import 'express';
 import session from 'express-session';
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload'];
 
@@ -245,6 +245,7 @@ const createAuthClient = async () => {
 };
 const projectAuthClient = createAuthClient();
 const state = randomBytes[32].toString('hex');
+req.session.state = state;
 let authUrl = await projectAuthClient.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
