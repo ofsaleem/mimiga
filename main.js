@@ -17,8 +17,8 @@ function createWindow () {
       webPreferences: {
         preload: path.join(__dirname, 'preload.js')
       }
-    })
-    win.loadFile('index.html')
+    });
+    win.loadFile('index.html');
     // Open the DevTools.
     win.webContents.openDevTools();
 }
@@ -234,7 +234,7 @@ const createAuthClient = async () => {
             win.webContents.send('log', err);
             return;
         }
-        projectCreds = data
+        projectCreds = data;
         oauth2Client = new OAuth2(
             projectCreds.web.client_id,
             projectCreds.web.client_secret,
