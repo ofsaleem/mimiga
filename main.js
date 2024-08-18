@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 // include the Node.js 'path' module at the top of your file
 import path from 'path';
 import ffbinaries from 'ffbinaries-extra';
