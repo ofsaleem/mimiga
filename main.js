@@ -3,7 +3,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import ffbinaries from 'ffbinaries-extra';
 import ffmpeg from 'fluent-ffmpeg';
-import { readFile } from 'fs';
+import { readFile } from 'fs/promises';
 import { randomBytes } from 'crypto';
 import { google } from 'googleapis';
 import Lien from 'lien';
@@ -230,27 +230,22 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
 
 // auth stuff, this will need to be organized and use IPC 
 const parseCreds = async () => {
-    let oauth2Client;
-    readFile('credentials.json', (err, data) => {
-        if (err) {
-            win.webContents.send('log', err);
-            return;
-        }
-        oauth2Client = new OAuth2(
-            data.web.client_id,
-            data.web.client_secret,
-            data.web.redirect_uris[0]
-        );
-    });
+    const fileContents = await readFile('credentials.json');
+    const CREDENTIALS = JSON.parse(fileContents);
+    let oauth2Client = new OAuth2(
+        CREDENTIALS.web.client_id,
+        CREDENTIALS.web.client_secret,
+        CREDENTIALS.web.redirect_uris[0]
+    );
     return oauth2Client;
 };
-const projectAuthClient = parseCreds();
 const state = randomBytes(32).toString('hex');
 const server = new Lien({
     host: "localhost",
     port: 5000
 });
-const authUrl = await projectAuthClient.generateAuthUrl({
+const projectAuthClient = await parseCreds();
+const authUrl = projectAuthClient.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
     include_granted_scopes: true,
