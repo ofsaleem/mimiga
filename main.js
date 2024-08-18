@@ -230,21 +230,21 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
 
 // auth stuff, this will need to be organized and use IPC 
 const parseCreds = async () => {
+    let oauth2Client;
     readFile('credentials.json', (err, data) => {
         if (err) {
             win.webContents.send('log', err);
             return;
         }
-        // remove this next part and put it into createAuthClient ?
         oauth2Client = new OAuth2(
             data.web.client_id,
             data.web.client_secret,
             data.web.redirect_uris[0]
         );
-        createAuthClient(data);
     });
+    return oauth2Client;
 };
-const projectAuthClient = createAuthClient();
+const projectAuthClient = parseCreds();
 const state = randomBytes(32).toString('hex');
 const server = new Lien({
     host: "localhost",
