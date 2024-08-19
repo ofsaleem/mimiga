@@ -42,7 +42,7 @@ getFfmpegBtn.addEventListener('click', async () => {
 
 const authBtn = document.getElementById('youtube-auth');
 authBtn.addEventListener('click', async () => {
-    output.innerHTML +=
-})
+    output.innerHTML += 'Beginning YouTube authorization...';
+});
 
 const uploadBtn = document.getElementById('upload-video');
