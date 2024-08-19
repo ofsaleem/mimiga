@@ -1,3 +1,5 @@
+const output = document.getElementById('output');
+
 function getImageWidth(input) {
     let fixedImageWidth = 600;
     let fr = new FileReader;
@@ -40,7 +42,7 @@ getFfmpegBtn.addEventListener('click', async () => {
 
 const authBtn = document.getElementById('youtube-auth');
 authBtn.addEventListener('click', async () => {
-    
+    output.innerHTML +=
 })
 
 const uploadBtn = document.getElementById('upload-video');

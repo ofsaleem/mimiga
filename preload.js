@@ -64,7 +64,7 @@ contextBridge.exposeInMainWorld(
 
 
 ipcRenderer.on('ffmpeg-encoding-start', (event, commandLine) => {
-  let output = document.getElementById('output');
+  output = document.getElementById('output');
   output.innerHTML += 'Spawned Ffmpeg with command: ' + commandLine + '\n' +
   'Beginning encoding\n';
   output.scrollTop = output.scrollHeight - output.clientHeight;
