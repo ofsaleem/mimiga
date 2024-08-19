@@ -20,6 +20,15 @@ const renderWithWaveforms = (mp3path, imagepath, fixedImageWidth) => {
   });
 }
 
+const getClientByParsing = () => {
+  return ipcRenderer.invoke('auth-parse').catch( () => {
+    console.error('Error parsing credentials.json');
+    output.innerHTML += 'Error parsing credentials.json \n';
+  }).then( () => {
+    output.innerHTML += 'Project secrets parsed successfully \n';
+  });
+}
+
 contextBridge.exposeInMainWorld(
   'ffbinaries', 
   {
@@ -35,33 +44,12 @@ contextBridge.exposeInMainWorld(
 contextBridge.exposeInMainWorld(
   'youtube',
   {
-    auth: () => {},
+    auth: () => {
+      let client = getClientByParsing();
+    },
     upload: () => {}
   }
 );
-
-// i don't think we need this anymore because i wrote wrappers for all the 
-// functions already:
-
-// contextBridge.exposeInMainWorld(
-//   "api", {
-//       send: (channel, data) => {
-//           // whitelist channels
-//           let validChannels = ["ffbinaries", "ffmpeg"];
-//           if (validChannels.includes(channel)) {
-//               ipcRenderer.send(channel, data);
-//           }
-//       },
-//       receive: (channel, func) => {
-//           let validChannels = ["fromMain"];
-//           if (validChannels.includes(channel)) {
-//               // Deliberately strip event as it includes `sender` 
-//               ipcRenderer.on(channel, (event, ...args) => func(...args));
-//           }
-//       }
-//   }
-// );
-
 
 ipcRenderer.on('ffmpeg-encoding-start', (event, commandLine) => {
   output = document.getElementById('output');

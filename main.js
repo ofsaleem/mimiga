@@ -228,6 +228,10 @@ ipcMain.handle('ffmpeg-waveforms', async (event, mp3path, imagepath, fixedImageW
   .save('output.mp4');
 });
 
+ipcMain.handle('auth-parse', async () => {
+    return await parseCreds();
+})
+
 // auth stuff, this will need to be organized and use IPC 
 const parseCreds = async () => {
     const fileContents = await readFile('credentials.json');
